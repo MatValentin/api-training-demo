@@ -32,7 +32,7 @@ jobs:
         with:
           script: |
             const issueComment = context.payload.issue.number;
-            github.issues.createComment({
+            github.rest.issues.createComment({
               issue_number: issueComment,
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -55,7 +55,6 @@ jobs:
         uses: ./.github/workflows/create_repo_workflow.yml
         with:
           repo-name: ${{ steps.generate_variables.outputs.result }}
-        Secrets:
           temp-token: ${{ steps.get_workflow_token_target.outputs.token }}
   
       - name: Finish Workflow Comment
@@ -63,7 +62,7 @@ jobs:
         with:
           script: |
             const issueComment = context.payload.issue.number;
-            github.issues.createComment({
+            github.rest.issues.createComment({
               issue_number: issueComment,
               owner: context.repo.owner,
               repo: context.repo.repo,
